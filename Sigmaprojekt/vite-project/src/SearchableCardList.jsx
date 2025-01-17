@@ -1,48 +1,81 @@
-import React, { useState } from 'react';
-import Card from './Card';  // Importiere die Card-Komponente
+import React from 'react';
+import Card from './Card';
 
-const SearchableCardList = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState(data);
+class SearchableCardList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cards: [],
+            searchQuery: '',
+            newName: '',
+            newJob: ''
+        };
+    }
 
-  const data = [
-    { name: 'Max Mustermann', location: 'Berlin', image: 'https://www.w3schools.com/howto/img_avatar.png' },
-    { name: 'Anna Meier', location: 'Hamburg', image: 'https://www.w3schools.com/howto/img_avatar.png' },
-    { name: 'John Doe', location: 'München', image: 'https://www.w3schools.com/howto/img_avatar.png' },
-    // Weitere Daten hier hinzufügen
-  ];
+    handleSearchChange = (event) => {
+        this.setState({ searchQuery: event.target.value });
+    };
 
-  const handleSearch = () => {
-    setFilteredData(
-      data.filter(person => person.name.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
-  };
+    handleNameChange = (event) => {
+        this.setState({ newName: event.target.value });
+    };
 
-  return (
-    <div className="container mx-auto p-6">
-      <div className="mb-4 flex items-center">
-        <input
-          type="text"
-          className="border border-gray-300 rounded p-2 w-1/2"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Suchen..."
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-500 text-white rounded p-2 ml-2"
-        >
-          Suchen
-        </button>
-      </div>
+    handleJobChange = (event) => {
+        this.setState({ newJob: event.target.value });
+    };
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredData.map((person, index) => (
-          <Card key={index} name={person.name} location={person.location} image={person.image} />
-        ))}
-      </div>
-    </div>
-  );
-};
+    addCard = () => {
+        const { newName, newJob, cards } = this.state;
+        if (newName && newJob) {
+            this.setState({
+                cards: [...cards, { name: newName, job: newJob }],
+                newName: '',
+                newJob: ''
+            });
+        }
+    };
+
+    render() {
+        const { cards, searchQuery, newName, newJob } = this.state;
+        const filteredCards = cards.filter(card =>
+            card.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            card.job.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        return (
+            <div className="p-4">
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChange={this.handleSearchChange}
+                        className="border p-2 rounded w-full mb-2"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={newName}
+                        onChange={this.handleNameChange}
+                        className="border p-2 rounded w-full mb-2"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Job"
+                        value={newJob}
+                        onChange={this.handleJobChange}
+                        className="border p-2 rounded w-full mb-2"
+                    />
+                    <button onClick={this.addCard} className="bg-blue-500 text-white p-2 rounded w-full">Add Card</button>
+                </div>
+                <div className="card-list grid grid-cols-1 gap-4">
+                    {filteredCards.map((card, index) => (
+                        <Card key={index} name={card.name} job={card.job} />
+                    ))}
+                </div>
+            </div>
+        );
+    }
+}
 
 export default SearchableCardList;

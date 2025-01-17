@@ -1,12 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';  // Hier solltest du deine Tailwind-Datei importieren
+import ReactDOM from 'react-dom/client';  // Import `react-dom/client` instead
+import './index.css';
 import App from './App';
 
-ReactDOM(
+// Create a root container using createRoot
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Use root.render instead of ReactDOM.render
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
-

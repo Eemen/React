@@ -1,9 +1,9 @@
 import SearchableCardList from "./SearchableCardList";
 
 export default function App() {
-  return (
-    <div>
-      <SearchableCardList />
-    </div>
-  )
+    return (
+        <div>
+            <SearchableCardList />
+        </div>
+    );
 }
