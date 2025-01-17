@@ -5,7 +5,7 @@ class Card extends React.Component {
     render() {
         const { name, job } = this.props;
         return (
-            <div className="card bg-white shadow-md rounded-lg p-4 flex items-center space-x-4">
+            <div className="card bg-white shadow-md rounded-lg p-4 flex items-center space-x-4 transform transition-transform duration-300 hover:scale-105">
                 <img className="w-16 h-16 rounded-full" src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile" />
                 <div>
                     <h2 className="text-xl font-semibold">{name}</h2>
