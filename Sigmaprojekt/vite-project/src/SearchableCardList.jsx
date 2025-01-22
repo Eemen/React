@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Card from './Card';
 
@@ -12,13 +13,15 @@ class SearchableCardList extends React.Component {
         };
     }
 
+    handleNameChange = (event) => {
+        this.setState({ newName: event.target.value });
+    };
+    
     handleSearchChange = (event) => {
         this.setState({ searchQuery: event.target.value });
     };
 
-    handleNameChange = (event) => {
-        this.setState({ newName: event.target.value });
-    };
+    
 
     handleJobChange = (event) => {
         this.setState({ newJob: event.target.value });
@@ -34,6 +37,9 @@ class SearchableCardList extends React.Component {
             });
         }
     };
+
+
+
 
     render() {
         const { cards, searchQuery, newName, newJob } = this.state;
