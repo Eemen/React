@@ -2,8 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* src/index.css */
+.App {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
 
 .card {
-    max-width: 400px;
-    margin: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+input {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+button {
+    padding: 5px;
+}
+
+button:hover {
+    background-color: #ddd;
 }
