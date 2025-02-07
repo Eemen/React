@@ -2,11 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from './Card';
 
-function Input({ addCard }) {
+// eslint-disable-next-line react/prop-types
+function Input( {addCard}) {
     const [name, setName] = useState('');
     const [job, setJob] = useState('');
     const [avatar, setAvatar] = useState('');
     const [loading, setLoading] = useState(false);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Hole einen zufälligen Avatar von der API
     useEffect(() => {
