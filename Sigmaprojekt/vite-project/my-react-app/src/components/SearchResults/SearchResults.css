@@ -1,0 +1,39 @@
+#movie-search-wrapper {
+  padding: 20px;
+  margin-top: 450px;
+}
+
+#movie-display-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movie-item img {
+  width: 200px;
+  height: 300px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.movie-item img:hover {
+  transform: scale(1.1);
+}
+
+.movie-item p {
+  color: white;
+  margin-top: 8px;
+  text-align: center;
+}
+
+#movie-search-wrapper h2 {
+  color: white;
+  margin-bottom: 20px;
+}
