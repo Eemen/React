@@ -2,11 +2,13 @@ import { useState } from 'react'
 import Header from './components/Header/Header'
 import MovieSlider from './components/MovieSlider/MovieSlider'
 import SearchResults from './components/SearchResults/SearchResults'
+import MoviePopup from './components/MoviePopup/MoviePopup'
 import './App.css'
 
 function App() {
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [searchResults, setSearchResults] = useState([])
+  const [selectedMovie, setSelectedMovie] = useState(null)
   const apiKey = "5206816f" // Replace with your actual API key
 
   const handleSearch = async (searchTerm) => {
@@ -30,14 +32,36 @@ function App() {
     }
   }
 
+  const handleMovieSelect = async (imdbID) => {
+    try {
+      const response = await fetch(
+        `http://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}&plot=full`
+      )
+      const data = await response.json()
+      
+      if (data.Response === "True") {
+        setSelectedMovie(data)
+      }
+    } catch (error) {
+      console.error("Error fetching movie details:", error)
+    }
+  }
+
   return (
     <div className="app">
       <Header onSearch={handleSearch} />
       
       {showSearchResults ? (
-        <SearchResults results={searchResults} />
+        <SearchResults results={searchResults} onMovieSelect={handleMovieSelect} />
       ) : (
-        <MovieSlider />
+        <MovieSlider onMovieSelect={handleMovieSelect} />
+      )}
+
+      {selectedMovie && (
+        <MoviePopup 
+          movie={selectedMovie} 
+          onClose={() => setSelectedMovie(null)} 
+        />
       )}
     </div>
   )
