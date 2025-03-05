@@ -9,7 +9,6 @@ function App() {
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [searchResults, setSearchResults] = useState([])
   const [selectedMovie, setSelectedMovie] = useState(null)
-  const [featuredMovie, setFeaturedMovie] = useState(null)
   const apiKey = "5206816f"
 
   const handleSearch = async (searchTerm) => {
@@ -48,49 +47,34 @@ function App() {
     }
   }
 
-  const handleMovieClick = (movie) => {
-    setFeaturedMovie(movie)
-  }
-
   return (
     <div className="app">
+      <Header onSearch={handleSearch} />
+      
       <div className="hero-section">
-        <Header onSearch={handleSearch} />
-        
-        <div className="api-wrapper">
-          <div className="api-content-wrapper">
-            <div className="api-content-wrapper-wrapper1">
-              <h1 id="display-title">{featuredMovie?.Title || 'Title'}</h1>
+        {selectedMovie && (
+          <>
+            <div className="hero-content">
+              <h1 className="hero-title">{selectedMovie.Title}</h1>
+              <div className="hero-genres">
+                <p>Genres</p>
+                <p>{selectedMovie.Genre}</p>
+              </div>
+              <button className="watch-now">Watch now</button>
             </div>
-            <div className="api-content-wrapper-wrapper2">
-              <p id="display-genres">Genres</p>
-            </div>
-            <div className="api-content-wrapper-wrapper3">
-              <p id="display-genre-list">{featuredMovie?.Genre || 'Action, mystery'}</p>
-            </div>
-            <p id="view-description">View Description</p>
-            <button className="watch-now-btn">Watch now</button>
-          </div>
-
-          <div className="api-img-wrapper">
-            {featuredMovie?.Poster && (
-              <img id="display-image" src={featuredMovie.Poster} alt={featuredMovie.Title} />
-            )}
-          </div>
-        </div>
+            <img 
+              className="hero-image" 
+              src={selectedMovie.Poster} 
+              alt={selectedMovie.Title} 
+            />
+          </>
+        )}
       </div>
       
       {showSearchResults ? (
-        <SearchResults 
-          results={searchResults} 
-          onMovieSelect={handleMovieSelect}
-          onMovieClick={handleMovieClick} 
-        />
+        <SearchResults results={searchResults} onMovieSelect={handleMovieSelect} />
       ) : (
-        <MovieSlider 
-          onMovieSelect={handleMovieSelect}
-          onMovieClick={handleMovieClick}
-        />
+        <MovieSlider onMovieSelect={handleMovieSelect} />
       )}
 
       {selectedMovie && (

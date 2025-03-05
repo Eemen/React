@@ -3,49 +3,59 @@
   position: fixed;
   top: 0;
   z-index: 1000;
-  overflow-x: visible;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    transparent 100%
+  );
 }
 
 #header-wrapper {
   width: 100%;
-  padding: 40px 50px;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #img-wrapper img {
-  width: 300px;
+  width: 200px;
   height: auto;
-  background: linear-gradient(to left, black, transparent);
-  position: absolute;
-  z-index: 1000;
 }
 
 #search-wrapper {
-  width: 100%;
-  position: absolute;
   display: flex;
-  justify-content: center;
-  top: 3rem;
+  align-items: center;
+  gap: 10px;
 }
 
 #search-wrapper input {
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   color: white;
-  background-color: black;
-  height: 3rem;
-  width: 20rem;
-  font-size: 2rem;
-  margin-top: 18px;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 40px;
+  width: 300px;
+  font-size: 16px;
+  padding: 0 15px;
 }
 
 #search-wrapper input:focus {
   outline: none;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 #search-btn {
-  margin-top: 18px;
-  height: 70px;
-  width: 70px;
-  background-color: black;
-  margin-left: -10px;
+  height: 40px;
+  padding: 0 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#search-btn:hover {
+  background-color: rgba(0, 0, 0, 0.9);
 }
