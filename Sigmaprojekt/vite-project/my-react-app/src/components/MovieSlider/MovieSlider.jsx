@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './MovieSlider.css'
 
-function MovieSlider({ onMovieSelect }) {
+function MovieSlider({ onMovieSelect, onMovieClick }) {
   const [movies, setMovies] = useState({
     action: [],
     drama: [],
@@ -57,6 +57,7 @@ function MovieSlider({ onMovieSelect }) {
               <img 
                 src={movie.Poster} 
                 alt={movie.Title} 
+                onClick={() => onMovieClick(movie)}
                 onDoubleClick={() => onMovieSelect(movie.imdbID)}
               />
               <p>{truncateTitle(movie.Title)}</p>

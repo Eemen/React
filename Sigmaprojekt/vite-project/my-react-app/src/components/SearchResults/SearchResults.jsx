@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './SearchResults.css'
 
-function SearchResults({ results, onMovieSelect }) {
+function SearchResults({ results, onMovieSelect, onMovieClick }) {
   const [movieResults, setMovieResults] = useState([])
   
   const truncateTitle = (title, maxLength = 20) => {
@@ -17,6 +17,7 @@ function SearchResults({ results, onMovieSelect }) {
             <img 
               src={movie.Poster} 
               alt={movie.Title} 
+              onClick={() => onMovieClick(movie)}
               onDoubleClick={() => onMovieSelect(movie.imdbID)}
             />
             <p>{truncateTitle(movie.Title)}</p>
