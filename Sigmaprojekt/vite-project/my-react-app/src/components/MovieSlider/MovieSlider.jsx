@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './MovieSlider.css'
 
-function MovieSlider() {
+function MovieSlider({ onMovieSelect, onMovieClick }) {
   const [movies, setMovies] = useState({
     action: [],
     drama: [],
@@ -10,6 +10,7 @@ function MovieSlider() {
   })
   
   const apiKey = "5206816f"
+  const sliderRefs = useRef({})
 
   const fetchGenreMovies = async (genre) => {
     try {
@@ -47,17 +48,63 @@ function MovieSlider() {
     return title.length > maxLength ? title.substring(0, maxLength) + "..." : title
   }
 
+  const scrollSlider = (genre, direction) => {
+    const slider = sliderRefs.current[genre]
+    if (slider) {
+      const scrollAmount = direction === 'left' ? -400 : 400
+      slider.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const handleClick = (movie) => {
+    onMovieClick(movie.imdbID)
+  }
+
+  const handleDoubleClick = (movie) => {
+    onMovieSelect(movie.imdbID)
+  }
+
   return (
     <div id="movie-slider-wrapper">
       <h2>Genres</h2>
       {Object.entries(movies).map(([genre, movieList]) => (
-        <div key={genre} id={`${genre}-slider`} className="movie-slider">
-          {movieList.map((movie) => (
-            <div key={movie.imdbID} className="movie-item">
-              <img src={movie.Poster} alt={movie.Title} />
-              <p>{truncateTitle(movie.Title)}</p>
+        <div key={genre} className="genre-section">
+          <h3>{genre.charAt(0).toUpperCase() + genre.slice(1)}</h3>
+          <div className="slider-container">
+            <button 
+              className="scroll-button left"
+              onClick={() => scrollSlider(genre, 'left')}
+              aria-label={`Scroll ${genre} movies left`}
+            >
+              ‹
+            </button>
+            <div 
+              ref={el => sliderRefs.current[genre] = el}
+              className="movie-slider"
+            >
+              {movieList.map((movie) => (
+                <div 
+                  key={movie.imdbID} 
+                  className="movie-item"
+                  onClick={() => handleClick(movie)}
+                  onDoubleClick={() => handleDoubleClick(movie)}
+                >
+                  <img src={movie.Poster} alt={movie.Title} />
+                  <p>{truncateTitle(movie.Title)}</p>
+                </div>
+              ))}
             </div>
-          ))}
+            <button 
+              className="scroll-button right"
+              onClick={() => scrollSlider(genre, 'right')}
+              aria-label={`Scroll ${genre} movies right`}
+            >
+              ›
+            </button>
+          </div>
         </div>
       ))}
     </div>

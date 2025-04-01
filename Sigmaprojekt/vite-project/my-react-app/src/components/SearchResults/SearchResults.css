@@ -14,6 +14,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.movie-item:hover {
+  transform: scale(1.02);
 }
 
 .movie-item img {
@@ -36,4 +42,12 @@
 #movie-search-wrapper h2 {
   color: white;
   margin-bottom: 20px;
+}
+
+.loading-indicator {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  font-size: 1.1em;
+  width: 100%;
 }

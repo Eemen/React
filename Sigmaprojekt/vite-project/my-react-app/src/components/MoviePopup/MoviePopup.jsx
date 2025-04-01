@@ -18,7 +18,6 @@ function MoviePopup({ movie, onClose }) {
         <p><strong>Actors:</strong> <span id="popup-actors">{movie.Actors}</span></p>
         <p><strong>Plot:</strong> <span id="popup-plot">{movie.Plot}</span></p>
         <p><strong>IMDb Rating:</strong> <span id="popup-imdbRating">{movie.imdbRating}</span></p>
-        <img id="popup-poster" src={movie.Poster} alt={`${movie.Title} Poster`} />
       </div>
     </div>
   )
